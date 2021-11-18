@@ -15,15 +15,21 @@
 	$result = mysqli_query($conn, $query);
 	while ($row = mysqli_fetch_assoc($result))
 	{
-		echo $row['Title'];
-		echo "<br>";
-		echo $row['Description'];
-		echo "<br>";
-		echo $row['minPrice'];
-		echo "<br>";
-		echo $row['maxPrice'];
-		echo "<br>";
-		echo $row['expectedDeliveryTime'];
-		echo "<br>";
+		echo "<div>
+			<h3>Title</h3>$row[Title]
+			<br>
+			<h3>Description</h3>
+			$row[Description]
+			<br>
+			<h3>Minimum Price</h3>
+			$row[minPrice]
+			<br>
+			<h3>Maximum Price</h3>
+			$row[maxPrice]
+			<br>
+			<h3>Expected Delvery Date</h3>
+			$row[expectedDeliveryTime]
+			<br>
+		</div>";
 	}
 ?>
