@@ -12,8 +12,6 @@
 	$result = mysqli_query($conn, $query);
 	$row = mysqli_fetch_assoc($result);
 	$AccountType = $row['AccountType'];
-
-
 ?>
 
 <!DOCTYPE html>
@@ -26,11 +24,12 @@
 	<?php 
 	echo "<a href=logout.php> <button>Log out</button> </a>";
 	echo "<br><br>";
-	echo "<a href=profile.php?email=$useremail&AccountType=$AccountType> <button>Profile</button> </a>";
+	echo "<a href=profile.php?email=$useremail> <button>Profile</button> </a>";
 	echo "<br><br>";
 	echo "<a href=message.php?email=$useremail> <button>Messages</button> </a>";
 	echo "<br><br>";
 
+	
 	if ($AccountType == "freelancer")
 	{
 		echo "<a href=mygigs.php?email=$useremail> <button>My Gigs</button> </a>";
@@ -43,12 +42,12 @@
 		echo "<br><br>";	
 		echo "<a href=requestpost.php?email=$useremail> <button>Post Requests</button> </a>";
 	}
-
 	echo "<br><br>";
-	echo "<a href=dashboard.php?email=$useremail&AccountType=$AccountType> <button>Gigs</button> </a>";
-	echo "<a href=requests.php?email=$useremail&AccountType=$AccountType> <button>Requests</button> </a>";
 
-	$query = "SELECT * FROM `users` JOIN `gigs` ON `users`.`UserID` = `gigs`.`UserID`";
+	echo "<a href=dashboard.php?email=$useremail> <button>Gigs</button> </a>";
+	echo "<a href=requests.php?email=$useremail> <button>Requests</button> </a>";
+
+	$query = "SELECT * FROM `users` JOIN `requests` ON `users`.`UserID` = `requests`.`UserID`";
 	$result = mysqli_query($conn, $query);
 	while ($row = mysqli_fetch_assoc($result))
 	{
@@ -68,8 +67,8 @@
 		<h3>Max Price:</h3>
 		$row[maxPrice]
 		<br>
-		<h3>Expected Delivery Days:</h3>
-		$row[ExpectedDeliveryDays]
+		<h3>Required Delivery Days:</h3>
+		$row[RequiredDeliveryDays]
 		<br>
 		</div>
 		";

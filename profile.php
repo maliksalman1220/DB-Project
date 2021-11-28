@@ -1,15 +1,11 @@
 <?php
-	$servername = 'localhost';
-	$username = 'root';
-	$password = '';
-	$dbname = 'linkup_db';
-
-	$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-	if ($conn == false)
+	session_start();
+	if (isset($_SESSION['login']) == false)
 	{
-		echo "Connection Failed";
+		header('Location:login.php');
 	}
+
+	include('conn_database.php');
 
 	$useremail = $_GET['email'];
 ?>
@@ -20,63 +16,28 @@
 	<title>Link Up</title>
 </head>
 <body>
-	<div>
-<!-- 		<img src="pp.jpg" width="200" height="200"> -->
-		<br>
 		<?php
-		$query = "SELECT `Name` FROM `freelancers` WHERE `email` = '$useremail'";
-		$result = mysqli_query($conn, $query);
-		$row = mysqli_fetch_assoc($result);
-		
+			echo "<a href=dashboard.php?email=$useremail> <button>Back</button> </a>";
+			$query = "SELECT * FROM `users` WHERE `email` = '$useremail'";
+			$result = mysqli_query($conn, $query);
+			$row = mysqli_fetch_assoc($result);
+
+			echo "<div>
+			<h3>Name:</h3>
+			$row[Name]
+			<h5>Email:</h5>
+			$row[email]
+			<h5>Gender:</h5>
+			$row[Gender]
+			<h5>Date of Birth:</h5>
+			$row[DateOfBirth]
+			<h5>Contact Info.:</h5>
+			$row[ContactInfo]
+			<h5>Country:</h5>
+			$row[Country]
+			</div> <br><br>";
+
+			echo "<a href=profileupdate.php?email=$useremail> <button>Update Profile</button> </a>";
 		?>
-		<h1>
-			<?php
-			echo $row['Name'];
-			?>
-		</h1>
-	</div>
-	<p>Email</p>
-	<?php 
-		$query = "SELECT `email` FROM `freelancers` WHERE `email` = '$useremail'";
-		$result = mysqli_query($conn, $query);
-		$row = mysqli_fetch_assoc($result);
-		echo $row['email'];
-	?>
-	<br>
-	<p>Contact Info.</p>
-	<?php 
-		$query = "SELECT `ContactInfo` FROM `freelancers` WHERE `email` = '$useremail'";
-		$result = mysqli_query($conn, $query);
-		$row = mysqli_fetch_assoc($result);
-		echo $row['ContactInfo'];
-	?>
-	<br>
-	<p>Date of Birth</p>
-	<?php 
-		$query = "SELECT `DateOfBirth` FROM `freelancers` WHERE `email` = '$useremail'";
-		$result = mysqli_query($conn, $query);
-		$row = mysqli_fetch_assoc($result);
-		echo $row['DateOfBirth'];
-	?>
-	<br>
-	<p>Rating</p>
-	<?php 
-		$query = "SELECT `Rating` FROM `freelancers` WHERE `email` = '$useremail'";
-		$result = mysqli_query($conn, $query);
-		$row = mysqli_fetch_assoc($result);
-		echo $row['Rating'];
-	?>
-	<br>
-	<p>Country</p>
-	<?php 
-		$query = "SELECT `Country` FROM `freelancers` WHERE `email` = '$useremail'";
-		$result = mysqli_query($conn, $query);
-		$row = mysqli_fetch_assoc($result);
-		echo $row['Country'];
-		echo "<br>
-		<a href=profileupdate.php?email=$useremail>
-			<button>update profile</button>
-		</a>";	
-	?>
 </body>
 </html>

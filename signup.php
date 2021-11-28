@@ -10,39 +10,23 @@ $email = $_GET['email'];
 
 if ($Password1 != $Password2)
 {
-	// header('Location:index.php?PasswordFailure=1');
+	header('Location:index.php?PasswordFailure=1');
 	echo "Password does not match";
 }
 else
 {
-	$servername = 'localhost';
-	$username = 'root';
-	$password = '';
-	$dbname = 'linkup_db';
+	include('conn_database.php');
 
-	$conn = mysqli_connect($servername, $username, $password, $dbname);
+	$query = "INSERT INTO `users` (`Name`, `email`, `Password`, `Gender`, `AccountType`, `DateOfBirth`) VALUES ('$Name', '$email' ,'$Password1', '$Gender', '$AccountType' ,'$DateOfBirth')";
 
-	if ($conn == false)
-	{
-		echo "Connection Failed";
-	}
-
-	if ($AccountType == "business")
-	{
-		$query = "INSERT INTO `businesses` (`Name`, `Password`, `Gender`, `DateOfBirth`, `email`) VALUES ('$Name', '$Password1', '$Gender', '$DateOfBirth', '$email')";
-	}
-	else
-	{
-		$query = "INSERT INTO `freelancers` (`Name`, `Password`, `Gender`, `DateOfBirth`, `email`) VALUES ('$Name', '$Password1', '$Gender', '$DateOfBirth', '$email')";
-	}
 
 	if (mysqli_query($conn, $query))
 	{
-		echo "Query Inserted Successfully";
+		header("Location:login.php?message=Signed Up Successfully");
 	} 
 	else
 	{
-		echo "Query Insertion Failed";
+		header("Location:main.php?message=ERROR: Signed Up failed");
 	}
 
 	mysqli_close($conn);

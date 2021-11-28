@@ -1,24 +1,14 @@
 <?php
 
-$useremail = $_GET['email'];
-$ContactInfo = $_GET['ContactInfo'];
-$Country = $_GET['Country'];
+	$useremail = $_GET['email'];
+	$ContactInfo = $_GET['ContactInfo'];
+	$Country = $_GET['Country'];
+	$AccountType = $_GET['AccountType'];
 
-$servername = 'localhost';
-$username = 'root';
-$password = '';
-$dbname = 'linkup_db';
+	include('conn_database.php');
 
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-if ($conn == false)
-{
-	echo "Connection Failed";
-}
-else
-{
-	$query1 = "UPDATE `freelancers` SET `ContactInfo` = '$ContactInfo' WHERE `freelancers`.`email` = '$useremail'"; 
-	$query2 = "UPDATE `freelancers` SET `Country` = '$Country' WHERE `freelancers`.`email` = '$useremail'";
+	$query1 = "UPDATE `users` SET `ContactInfo` = '$ContactInfo' WHERE `users`.`email` = '$useremail'";
+	$query2 = "UPDATE `users` SET `Country` = '$Country' WHERE `users`.`email` = '$useremail'"; 
 	 
 	if (mysqli_query($conn, $query1) && mysqli_query($conn, $query2))
 	{
@@ -27,7 +17,6 @@ else
 	} 
 	else
 	{
-		header("Location:profile.php");
+		header("Location:profile.php?email=$useremail");
 	}
-}
 ?>

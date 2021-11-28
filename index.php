@@ -4,7 +4,7 @@
 	<title>Sign Up Form</title>
 </head>
 <body>
-
+	<a href="main.php"> <button>Back</button> </a>
 	<form action="signup.php" method="get">
 		<input type="text" name="Name", placeholder="Enter Your Name">
 		<br>

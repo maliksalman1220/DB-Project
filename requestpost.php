@@ -20,11 +20,11 @@
 	echo "<a href=dashboard.php?email=$useremail>	<button>Back</button> </a>";
 	echo "<br><br>";
 	echo "<a href=profile.php?email=$useremail>	<button>Profile</button> </a>";
-	echo "<br><br><h1>Post Your Gig</h1>";
+	echo "<br><br><h1>Post Your Requests</h1>";
 	?>
 
 
-	<form action="gigupdate.php" method="get">
+	<form action="requestupdate.php" method="get">
 		<h5>Title</h5>
 		<input type="text" name="Title", placeholder="Enter Title Here!">
 		<br>
@@ -37,8 +37,8 @@
 		<h5>Maximum Price</h5>
 		<input type="int" name="maxPrice", placeholder="Enter Maximum Price">
 		<br>
-		<h5>Expected Delivery Days</h5>
-		<input type="int" name="ExpectedDeliveryDays", placeholder="Enter Expected Delivery Days">
+		<h5>Required Delivey Days</h5>
+		<input type="int" name="RequiredDeliveryDays", placeholder="Enter Required Delivery Days">
 		<br>
 		<input type="hidden" name="email", value=<?php echo $useremail; ?>>
 		<br>
