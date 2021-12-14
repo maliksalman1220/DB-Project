@@ -11,20 +11,19 @@ $email = $_GET['email'];
 if ($Password1 != $Password2)
 {
 	header('Location:index.php?PasswordFailure=1');
-	echo "Password does not match";
 }
 else
 {
 	include('conn_database.php');
 
-	$query = "INSERT INTO `users` (`Name`, `email`, `Password`, `Gender`, `AccountType`, `DateOfBirth`) VALUES ('$Name', '$email' ,'$Password1', '$Gender', '$AccountType' ,'$DateOfBirth')";
+	$query = "INSERT INTO `users` (`Name`, `Password`, `email`, `AccountType`, `Gender`, `DateOfBirth`) VALUES ('$Name', '$Password1' ,'$email', '$AccountType', '$Gender' ,'$DateOfBirth')";
 
 
 	if (mysqli_query($conn, $query))
 	{
 		header("Location:login.php?message=Signed Up Successfully");
 	} 
-	else
+	else 
 	{
 		header("Location:main.php?message=ERROR: Signed Up failed");
 	}

@@ -13,14 +13,19 @@
 	$minPrice = $_GET['minPrice'];
 	$maxPrice = $_GET['maxPrice'];
 	$RequiredDeliveryDays = $_GET['RequiredDeliveryDays'];
+	$Category = $_GET['Category'];
 
 	$query = "SELECT `UserID` FROM `users` WHERE `users`.`email` = '$useremail'";
 	$result = mysqli_query($conn, $query);
 	$row = mysqli_fetch_assoc($result);
 
-	$query1 = "INSERT INTO `requests` (`UserID`, `Title`, `Description`, `minPrice`, `maxPrice`, `RequiredDeliveryDays`) VALUES ('$row[UserID]', '$Title', '$Description', '$minPrice', '$maxPrice', '$RequiredDeliveryDays')";
+	$query1 = "SELECT * FROM categories WHERE `Categories` = '$Category'";
+	$result1 = mysqli_query($conn, $query1);
+	$row1 = mysqli_fetch_assoc($result1);
 
-	if (mysqli_query($conn, $query1))
+	$query2 = "INSERT INTO `requests` (`UserID`, `Title`, `Description`, `minPrice`, `maxPrice`, `RequiredDeliveryDays`, `CatID`) VALUES ('$row[UserID]', '$Title', '$Description', '$minPrice', '$maxPrice', '$RequiredDeliveryDays', '$row1[CatID]')";
+
+	if (mysqli_query($conn, $query2))
 	{
 		header("Location:requests.php?email=$useremail");
 	} 
